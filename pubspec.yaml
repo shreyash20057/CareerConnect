@@ -1,0 +1,56 @@
+name: careerconnect
+description: Professional career platform for students and job seekers
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase
+  firebase_core: ^4.13.0
+  firebase_auth: ^6.5.7
+  cloud_firestore: ^6.8.0
+  firebase_storage: ^13.4.6
+  firebase_messaging: ^16.5.0
+
+  # Google Sign-In
+  google_sign_in: ^7.2.0
+
+  # Navigation
+  go_router: ^17.5.0
+
+  # State Management
+  provider: ^6.1.2
+
+  # UI
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  flutter_svg: ^2.0.10+1
+  flutter_animate: ^4.5.0
+  table_calendar: ^3.2.1
+  flex_color_scheme: ^8.4.0
+
+  # Utils
+  image_picker: ^1.1.1
+  file_picker: ^12.0.0
+  intl: ^0.20.3
+  url_launcher: ^6.2.6
+  shared_preferences: ^2.2.3
+  uuid: ^4.4.0
+  http: ^1.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/animations/
