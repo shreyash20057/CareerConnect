@@ -30,8 +30,15 @@ class ChatProvider extends ChangeNotifier {
   ChatProvider() {
     _messages.add(ChatMessage(
       text:
-          "Hi! I'm your **AI Career Assistant**. I can help you with:\n\n• Career guidance and planning\n• Interview preparation\n• Skill gap analysis\n• Resume improvement\n• Job-specific prep\n\nWhat would you like to know?",
+          "Hi! I'm your **AI Career Assistant**. I can help you with:\n\n"
+          "• Career guidance and planning\n"
+          "• Interview preparation\n"
+          "• Skill gap analysis\n"
+          "• Resume improvement\n"
+          "• Job-specific prep\n\n"
+          "What would you like to know?",
       isUser: false,
+      timestamp: DateTime.now(),
     ));
   }
 
@@ -43,15 +50,18 @@ class ChatProvider extends ChangeNotifier {
   Future<void> sendMessage(String text) async {
     if (text.trim().isEmpty || _isLoading) return;
 
-    _messages.add(ChatMessage(text: text, isUser: true));
+    _messages.add(ChatMessage(
+      text: text,
+      isUser: true,
+      timestamp: DateTime.now(),
+    ));
     _isLoading = true;
     notifyListeners();
 
     try {
       final history = _messages
           .where((m) => !m.isError)
-          .skip(1) // skip greeting
-          .take(_messages.length - 2) // exclude last user message
+          .take(_messages.length - 1)
           .map((m) => {
                 'role': m.isUser ? 'user' : 'assistant',
                 'content': m.text,
@@ -65,12 +75,17 @@ class ChatProvider extends ChangeNotifier {
         selectedJob: _selectedJob,
       );
 
-      _messages.add(ChatMessage(text: reply, isUser: false));
+      _messages.add(ChatMessage(
+        text: reply,
+        isUser: false,
+        timestamp: DateTime.now(),
+      ));
     } catch (e) {
       _messages.add(ChatMessage(
         text:
             'I encountered a connection error. Please check your internet and try again.',
         isUser: false,
+        timestamp: DateTime.now(),
         isError: true,
       ));
     }
@@ -82,9 +97,9 @@ class ChatProvider extends ChangeNotifier {
   void clearChat() {
     _messages.clear();
     _messages.add(ChatMessage(
-      text:
-          "Hi! I'm your AI Career Assistant. How can I help you today?",
+      text: "Hi! I'm your AI Career Assistant. How can I help you today?",
       isUser: false,
+      timestamp: DateTime.now(),
     ));
     notifyListeners();
   }
